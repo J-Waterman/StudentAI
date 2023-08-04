@@ -11,7 +11,7 @@ import scala.concurrent.{ExecutionContext, Future}
 
 object OpenAiClient {
   // NOTE: For prototype purposes, this is hardcoded. In production, this should be stored in a secret manager
-  val OPENAI_API_KEY: String = "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"
+  val OPENAI_API_KEY: String = "REDACTED"
   val model: String = "gpt-3.5-turbo"
   val endpoint: Uri = uri"https://api.openai.com/v1/chat/completions"
   val backend = HttpClientFutureBackend()
@@ -34,7 +34,7 @@ object OpenAiClient {
       .headers(
         Map(
           "Authorization" -> s"Bearer $OPENAI_API_KEY",
-          "OpenAI-Organization" -> "org-QcxIt11RaFxawrn2BGQUJqGN",
+          "OpenAI-Organization" -> "REDACTED",
           "Content-Type" -> "application/json"
         )
       )
@@ -57,6 +57,8 @@ object OpenAiClient {
       response.body match {
         case Left(error) => None
         case Right(response) =>
+          println("-------")
+          println(response.choices.head.message.content)
           Some(response.choices.head.message.content)
       }
     }
