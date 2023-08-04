@@ -1,0 +1,104 @@
+@import play.api.libs.json.Json
+@(questions: QuestionResponse, feedback: Seq[String] = Seq("",""), answers: Seq[String] = Seq("",""))
+
+@main("Questions") {
+  <div class="background-div">
+    <form class="center-form" method="post" action="@routes.HomeController.handleAnswers">
+      @for((question, index) <- questions.questions.zipWithIndex) {
+        <div class="question-holder">
+          <p>@{question.question}</p>
+          <p class="paragraph-display">@{question.optionalParagraph}</p>
+          <textarea name="@{s"answer$index"}">@{answers(index)}</textarea>
+          @if(feedback(index) != "") {
+              <p>@{feedback(index)}</p>
+          }
+        </div>
+      }
+      <input type="hidden" name="questionResponse" value="@{Json.toJson(questions)}">
+      <input class="submit-button" type="submit" value="Submit">
+    </form>
+
+    <div class="rubric">
+      <h2>Rubric</h2>
+      @for(point <- questions.rubric) {
+        <p>@{point}</p>
+      }
+    </div>
+  </div>
+
+  <style>
+    .rubric {
+      position: absolute;
+      width: 30vw;
+      left: 35vw;
+      bottom: 5vh;
+      height: auto;
+      padding: 20pt;
+      font-size: 12pt;
+      background-color: #fff0e5;
+      box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.25), -6px -6px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    .rubric h2 {
+      text-align: center;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .rubric p {
+      margin: 10pt;
+      padding: 0;
+    }
+
+    .submit-button {
+      width: 60%;
+      height: 3vh;
+      background-color: #58a0cc;
+      font-size: 16pt;
+      margin-top: 20pt;
+      margin-left: 20%;
+    }
+
+    .background-div {
+      background-color: cadetblue;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .question-holder {
+      font-size: 12pt;
+      width: 90%;
+      margin-left: 5%;
+    }
+
+    .question-holder textarea {
+      width: 100%;
+      height: 6vh;
+    }
+
+    .paragraph-display {
+      border: 1px solid #bdbbb5;
+      background-color: #eeebe2;
+      padding: 10pt;
+    }
+
+    .center-form {
+      background-color: #faffff;
+      position: absolute;
+      width: 40vw;
+      height: auto;
+      left: 30vw;
+      top: 25vh;
+
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      margin-left: 10pt;
+
+      border-radius: 10pt;
+
+      box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.25), -6px -6px 12px rgba(0, 0, 0, 0.25);
+    }
+  </style>
+}

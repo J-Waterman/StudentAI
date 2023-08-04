@@ -1,0 +1,61 @@
+@(item: String)
+
+@main("Welcome to Play") {
+  <div class="background-div">
+    <div class="center-form">
+      <h1>Input initial information below to begin: </h1>
+      <form action="@routes.HomeController.generateQuestions" method="post">
+        <label>
+          Interests:
+          <input type="text" name="interests">
+        </label>
+        <input class="submit-button" type="submit" value="Submit">
+      </form>
+    </div>
+  </div>
+
+
+  <style>
+    .background-div {
+      background-color: cadetblue;
+      width: 100vw;
+      height: 100vh;
+    }
+
+    .center-form {
+      background-color: #faffff;
+      position: absolute;
+      width: 30vw;
+      height: 50vh;
+      left: 35vw;
+      top: 25vh;
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      border-radius: 10pt;
+
+      box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.25), -6px -6px 12px rgba(0, 0, 0, 0.25);
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+      height: 100%;
+    }
+
+    .submit-button {
+      width: 100%;
+      height: 3vh;
+      background-color: #58a0cc;
+      font-size: 16pt;
+    }
+
+    .submit-button:hover {
+      background-color: #4692c0;
+    }
+  </style>
+}
